@@ -34,10 +34,10 @@ public class EcranGestionSeances extends JPanel {
 
 
     public EcranGestionSeances(SeanceService seanceService, FilmService filmService, SalleService salleService) {
-        seanceService = seanceService;
-        filmService = filmService; // Initialiser les services dont SeanceController pourrait avoir besoin
-        salleService = salleService;
-        seanceController = new SeanceController(seanceService, this);
+        this.seanceService = seanceService;
+        this.filmService = filmService; // Initialiser les services dont SeanceController pourrait avoir besoin
+        this.salleService = salleService;
+        this.seanceController = new SeanceController(this.seanceService, this);
 
         setLayout(new BorderLayout());
 
@@ -49,7 +49,7 @@ public class EcranGestionSeances extends JPanel {
         // Panel Formulaire et Boutons
         JPanel formulaireEtBoutonsPanel = new JPanel(new BorderLayout());
 
-        formulaireSeance = new FormulaireSeance();
+        formulaireSeance = new FormulaireSeance(this.filmService, this.salleService);
         formulaireEtBoutonsPanel.add(formulaireSeance, BorderLayout.NORTH);
 
         JPanel boutonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

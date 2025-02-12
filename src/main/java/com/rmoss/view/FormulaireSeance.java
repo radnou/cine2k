@@ -21,9 +21,9 @@ public class FormulaireSeance extends JPanel {
     private FilmService filmService;
     private SalleService salleService;
 
-    public FormulaireSeance() {
-        filmService = new FilmService(); // Initialisation des services pour remplir les combobox
-        salleService = new SalleService();
+    public FormulaireSeance(FilmService filmService, SalleService salleService) {
+        this.filmService = filmService; // Initialisation des services pour remplir les combobox
+        this.salleService = salleService;
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -91,6 +91,10 @@ public class FormulaireSeance extends JPanel {
     }
 
     private void chargerFilmsDansComboBox() {
+        if (filmService == null) {
+            return;
+        }
+        filmService.getAllFilms().stream().toString();
         filmComboBox.removeAllItems();
         for (Film film : filmService.getAllFilms()) {
             filmComboBox.addItem(film);
@@ -98,6 +102,9 @@ public class FormulaireSeance extends JPanel {
     }
 
     private void chargerSallesDansComboBox() {
+        if (salleService == null) {
+            return;
+        }
         salleComboBox.removeAllItems();
         for (Salle salle : salleService.getAllSalles()) {
             salleComboBox.addItem(salle);

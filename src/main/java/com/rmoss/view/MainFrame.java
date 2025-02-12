@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
     private EcranGestionSeances ecranGestionSeances;
     private EcranReservations ecranReservations;
 
- // Services - il faut s'assurer qu'ils sont initialisés dans MainFrame pour pouvoir les utiliser ici
+    // Services - il faut s'assurer qu'ils sont initialisés dans MainFrame pour pouvoir les utiliser ici
     private FilmService filmService = new FilmService();
     private SalleService salleService = new SalleService();
     private SeanceService seanceService = new SeanceService();
@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
         setContentPane(contentPanel); // Définir le JPanel principal comme contentPane de la JFrame
 
         // Initialiser les écrans de gestion (une seule fois ici !)
- // **PASSAGE DES SERVICES AUX CONSTRUCTEURS DES ÉCRANS**
+        // **PASSAGE DES SERVICES AUX CONSTRUCTEURS DES ÉCRANS**
         ecranGestionFilms = new EcranGestionFilms(filmService); // Passer filmService
         ecranGestionSalles = new EcranGestionSalles(salleService); // Passer salleService
         ecranGestionSeances = new EcranGestionSeances(seanceService, filmService, salleService); // Passer seanceService, filmService, salleService
@@ -114,7 +114,7 @@ public class MainFrame extends JFrame {
         setJMenuBar(menuBar);
 // Ajouter les jeux de données avant d'afficher l'écran initial
         ajouterJeuxDeDonnees();
-         // **METTRE À JOUR LES VUES APRÈS L'AJOUT DES DONNÉES !**
+        // **METTRE À JOUR LES VUES APRÈS L'AJOUT DES DONNÉES !**
         ecranGestionFilms.mettreAJourListeFilms();
         ecranGestionSalles.mettreAJourListeSalles();
         ecranGestionSeances.mettreAJourListeSeances();
@@ -131,14 +131,14 @@ public class MainFrame extends JFrame {
         });
     }
 
-        private void ajouterJeuxDeDonnees() {
+    private void ajouterJeuxDeDonnees() {
         // **Films**
         Film film1 = new Film();
         film1.setTitre("Avatar: La Voie de l'Eau");
         film1.setRealisateur("James Cameron");
         film1.setGenre("Science-Fiction");
         film1.setDuree(192);
-        film1.setDateSortie(new Date(2023, 11, 14)); // Date pour 2022-12-14 (Année - 1900, Mois - 1, Jour)
+        film1.setDateSortie(new Date(123, 11, 14)); // Date pour 2022-12-14 (Année - 1900, Mois - 1, Jour)
         film1.setClassification("PG-13");
         filmService.ajouterFilm(film1);
 
@@ -156,7 +156,7 @@ public class MainFrame extends JFrame {
         film3.setRealisateur("Greta Gerwig");
         film3.setGenre("Comédie, Fantastique");
         film3.setDuree(114);
-        film3.setDateSortie(new Date(2023, 6, 21)); // Date pour 2023-07-21
+        film3.setDateSortie(new Date(123, 6, 21)); // Date pour 2023-07-21
         film3.setClassification("PG-13");
         filmService.ajouterFilm(film3);
 
@@ -183,7 +183,7 @@ public class MainFrame extends JFrame {
         Seance seance1 = new Seance();
         seance1.setFilm(film1);
         seance1.setSalle(salle1);
-        seance1.setDateHeure(LocalDateTime.of(2024, Month.MARCH, 10, 14, 0)); // 2024-03-10 14:00
+        seance1.setDateHeure(LocalDateTime.of(123, Month.MARCH, 10, 14, 0)); // 2024-03-10 14:00
         seance1.setVersion("VF");
         seance1.setTypeProjection("2D");
         seance1.setPrixPlace(12.50);
@@ -192,7 +192,7 @@ public class MainFrame extends JFrame {
         Seance seance2 = new Seance();
         seance2.setFilm(film2);
         seance2.setSalle(salle2);
-        seance2.setDateHeure(LocalDateTime.of(2024, Month.MARCH, 11, 19, 30)); // 2024-03-11 19:30
+        seance2.setDateHeure(LocalDateTime.of(123, Month.MARCH, 11, 19, 30)); // 2024-03-11 19:30
         seance2.setVersion("VOSTFR");
         seance2.setTypeProjection("IMAX 3D");
         seance2.setPrixPlace(18.00);
@@ -201,7 +201,7 @@ public class MainFrame extends JFrame {
         Seance seance3 = new Seance();
         seance3.setFilm(film3);
         seance3.setSalle(salle3);
-        seance3.setDateHeure(LocalDateTime.of(2024, Month.MARCH, 12, 21, 0)); // 2024-03-12 21:00
+        seance3.setDateHeure(LocalDateTime.of(123, Month.MARCH, 12, 21, 0)); // 2024-03-12 21:00
         seance3.setVersion("VF");
         seance3.setTypeProjection("2D VIP");
         seance3.setPrixPlace(25.00);
@@ -214,6 +214,7 @@ public class MainFrame extends JFrame {
         reservation1.setClientPrenom("Jean");
         reservation1.setNbPlaces(2);
         reservation1.setTypeTarif("Plein Tarif");
+        reservation1.setDateReservation(LocalDateTime.of(2023, Month.MARCH, 12, 21, 0));
         reservationService.creerReservation(reservation1);
 
         Reservation reservation2 = new Reservation();
@@ -222,6 +223,8 @@ public class MainFrame extends JFrame {
         reservation2.setClientPrenom("Sophie");
         reservation2.setNbPlaces(1);
         reservation2.setTypeTarif("Tarif Réduit");
+        reservation2.setDateReservation(LocalDateTime.of(2023, Month.MARCH, 12, 21, 0));
+
         reservationService.creerReservation(reservation2);
 
         Reservation reservation3 = new Reservation();
@@ -229,6 +232,8 @@ public class MainFrame extends JFrame {
         reservation3.setClientNom("Lefevre");
         reservation3.setClientPrenom("Pierre");
         reservation3.setNbPlaces(3);
+        reservation3.setDateReservation(LocalDateTime.of(2023, Month.MARCH, 12, 21, 0));
+
         reservation3.setTypeTarif("Plein Tarif");
         reservationService.creerReservation(reservation3);
 

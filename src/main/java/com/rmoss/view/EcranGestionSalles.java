@@ -28,7 +28,7 @@ public class EcranGestionSalles extends JPanel {
 
     public EcranGestionSalles(SalleService salleService) {
         this.salleService = salleService;
-        salleController = new SalleController(this.salleService, this);
+        this.salleController = new SalleController(this.salleService, this);
 
         setLayout(new BorderLayout());
 

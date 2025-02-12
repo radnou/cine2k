@@ -31,8 +31,8 @@ public class EcranReservations extends JPanel {
 
 
     public EcranReservations(ReservationService reservationService, SeanceService seanceService) {
-        reservationService = reservationService;
-        seanceService = seanceService; // Initialisation du service des séances
+        this.reservationService = reservationService;
+        this.seanceService = seanceService; // Initialisation du service des séances
         reservationController = new ReservationController(reservationService, seanceService, this); // Passer seanceService aussi
 
         setLayout(new BorderLayout());
