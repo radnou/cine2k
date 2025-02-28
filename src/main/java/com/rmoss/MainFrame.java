@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setTitle("Application de Cinéma");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1024, 1024);
         setLocationRelativeTo(null);
 
         // Initialiser le CardLayout et le JPanel principal
