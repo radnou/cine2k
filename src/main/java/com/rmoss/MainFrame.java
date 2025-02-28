@@ -1,4 +1,4 @@
-package com.rmoss.view;
+package com.rmoss;
 
 import com.rmoss.model.ReservationService;
 import com.rmoss.model.Film;
@@ -8,6 +8,10 @@ import com.rmoss.model.Salle;
 import com.rmoss.model.SalleService;
 import com.rmoss.model.Seance;
 import com.rmoss.model.SeanceService;
+import com.rmoss.view.EcranGestionFilms;
+import com.rmoss.view.EcranGestionSalles;
+import com.rmoss.view.EcranGestionSeances;
+import com.rmoss.view.EcranReservations;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,6 +56,8 @@ public class MainFrame extends JFrame {
         setContentPane(contentPanel); // Définir le JPanel principal comme contentPane de la JFrame
 
         // Initialiser les écrans de gestion (une seule fois ici !)
+        // Ajouter les jeux de données avant d'afficher l'écran initial
+        ajouterJeuxDeDonnees();
         // **PASSAGE DES SERVICES AUX CONSTRUCTEURS DES ÉCRANS**
         ecranGestionFilms = new EcranGestionFilms(filmService); // Passer filmService
         ecranGestionSalles = new EcranGestionSalles(salleService); // Passer salleService
@@ -96,6 +102,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Afficher l'écran des séances
+                        ecranGestionSeances.mettreAJourListeSeances();
                 cardLayout.show(contentPanel, "SEANCES"); // Afficher la carte "SEANCES"
             }
         });
@@ -112,8 +119,7 @@ public class MainFrame extends JFrame {
         menuGestion.add(menuReservations);
 
         setJMenuBar(menuBar);
-// Ajouter les jeux de données avant d'afficher l'écran initial
-        ajouterJeuxDeDonnees();
+
         // **METTRE À JOUR LES VUES APRÈS L'AJOUT DES DONNÉES !**
         ecranGestionFilms.mettreAJourListeFilms();
         ecranGestionSalles.mettreAJourListeSalles();

@@ -152,7 +152,7 @@ public class EcranGestionFilms extends JPanel {
     }
 
     public void filtrerFilmsDansTable(String critere) {
-        if (critere == null || critere.trim().length() == 0) {
+        if (critere == null || critere.trim().isEmpty()) {
             sorter.setRowFilter(null); // Retirer le filtre
         } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + critere)); // (?i) pour case-insensitive

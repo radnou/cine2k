@@ -33,7 +33,7 @@ public class EcranReservations extends JPanel {
     public EcranReservations(ReservationService reservationService, SeanceService seanceService) {
         this.reservationService = reservationService;
         this.seanceService = seanceService; // Initialisation du service des séances
-        reservationController = new ReservationController(reservationService, seanceService, this); // Passer seanceService aussi
+        reservationController = new ReservationController(this.reservationService, this.seanceService, this); // Passer seanceService aussi
 
         setLayout(new BorderLayout());
 
@@ -148,7 +148,7 @@ return;        }
     }
 
     public void filtrerReservationsDansTable(String critere) {
-        if (critere == null || critere.trim().length() == 0) {
+        if (critere == null || critere.trim().isEmpty()) {
             sorter.setRowFilter(null);
         } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + critere));

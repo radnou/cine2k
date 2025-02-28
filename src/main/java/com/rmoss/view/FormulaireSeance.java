@@ -2,14 +2,18 @@ package com.rmoss.view;
 
 import com.rmoss.model.Film;
 import com.rmoss.model.FilmService;
+import com.rmoss.model.FilmServiceObserver;
 import com.rmoss.model.Salle;
 import com.rmoss.model.SalleService;
+import com.rmoss.model.SalleServiceObserver;
 import com.rmoss.model.Seance;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
-public class FormulaireSeance extends JPanel {
+public class FormulaireSeance extends JPanel implements FilmServiceObserver, SalleServiceObserver {
+
 
     private JComboBox<Film> filmComboBox;
     private JComboBox<Salle> salleComboBox;
@@ -24,6 +28,9 @@ public class FormulaireSeance extends JPanel {
     public FormulaireSeance(FilmService filmService, SalleService salleService) {
         this.filmService = filmService; // Initialisation des services pour remplir les combobox
         this.salleService = salleService;
+         //Adding the observer
+        this.filmService.addObserver(this);
+        this.salleService.addObserver(this);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -90,27 +97,36 @@ public class FormulaireSeance extends JPanel {
         setBorder(BorderFactory.createTitledBorder("Informations de la Séance"));
     }
 
-    private void chargerFilmsDansComboBox() {
-        if (filmService == null) {
-            return;
-        }
-        filmService.getAllFilms().stream().toString();
-        filmComboBox.removeAllItems();
-        for (Film film : filmService.getAllFilms()) {
-            filmComboBox.addItem(film);
-        }
+   private void chargerFilmsDansComboBox() {
+    if (filmService == null) {
+        return;
     }
 
-    private void chargerSallesDansComboBox() {
-        if (salleService == null) {
-            return;
-        }
-        salleComboBox.removeAllItems();
-        for (Salle salle : salleService.getAllSalles()) {
-            salleComboBox.addItem(salle);
-        }
+    DefaultComboBoxModel<Film> model = new DefaultComboBoxModel<>();
+    for (Film film : filmService.getAllFilms()){
+        model.addElement(film);
+    }
+    filmComboBox.setModel(model);
+    if (model.getSize() > 0) {
+        filmComboBox.setSelectedIndex(0); // Optionally, select the first item
     }
 
+
+}
+   private void chargerSallesDansComboBox() {
+    if (salleService == null) {
+        return;
+    }
+
+    DefaultComboBoxModel<Salle> model = new DefaultComboBoxModel<>();
+    for (Salle salle : salleService.getAllSalles()) {
+        model.addElement(salle);
+    }
+    salleComboBox.setModel(model);
+    if (model.getSize() > 0) {
+        salleComboBox.setSelectedIndex(0);
+    }
+}
 
     // Getters
     public JComboBox<Film> getFilmComboBox() {
@@ -155,5 +171,16 @@ public class FormulaireSeance extends JPanel {
         versionTextField.setText(seance.getVersion());
         typeProjectionTextField.setText(seance.getTypeProjection());
         prixPlaceTextField.setText(String.valueOf(seance.getPrixPlace()));
+    }
+
+
+    @Override
+    public void onFilmsChanged() {
+        chargerFilmsDansComboBox();
+    }
+
+    @Override
+    public void onSallesChanged() {
+    chargerSallesDansComboBox();
     }
 }

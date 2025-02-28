@@ -139,6 +139,8 @@ public class FilmController {
             JOptionPane.showMessageDialog(vue, "Film modifié avec succès!", "Succès", JOptionPane.INFORMATION_MESSAGE);
             vue.mettreAJourListeFilms(); // Rafraîchir la liste
             vue.getFormulaireFilm().viderFormulaire(); // Vider formulaire après modification
+              vue.mettreAJourListeFilms(); // Refresh the film list
+    // You might also need to refresh seanceService if it holds film data
         } else {
             JOptionPane.showMessageDialog(vue, "Erreur lors de la modification du film.", "Erreur", JOptionPane.ERROR_MESSAGE);
         }

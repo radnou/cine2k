@@ -172,6 +172,7 @@ public class FormulaireFilm extends JPanel {
         dureeTextField.setText(String.valueOf(film.getDuree()));
         genreTextField.setText(film.getGenre());
         dateSortieTextField.setText(film.getDateSortie() != null ? film.getDateSortie().toString() : ""); // Formatage de la date si nécessaire
+
         affichePathTextField.setText(film.getAffichePath());
         bandeAnnonceURLTextField.setText(film.getBandeAnnonceURL());
         classificationTextField.setText(film.getClassification());

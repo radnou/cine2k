@@ -150,10 +150,11 @@ public class EcranGestionSeances extends JPanel {
                     seance.getPrixPlace()
             });
         }
+
     }
 
     public void filtrerSeancesDansTable(String critere) {
-        if (critere == null || critere.trim().length() == 0) {
+        if (critere == null || critere.trim().isEmpty()) {
             sorter.setRowFilter(null);
         } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + critere));

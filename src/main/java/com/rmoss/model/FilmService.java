@@ -6,6 +6,7 @@ import java.util.UUID; // Pour générer des IDs uniques
 
 public class FilmService {
     private List<Film> films = new ArrayList<>(); // Stockage en mémoire pour l'instant
+private List<FilmServiceObserver> observers = new ArrayList<>(); // List of observers
 
     public FilmService() {
         // Constructeur par défaut
@@ -15,6 +16,7 @@ public class FilmService {
     public Film ajouterFilm(Film film) {
         film.setFilmId(UUID.randomUUID().toString()); // Générer un ID unique UUID
         films.add(film);
+             notifyObservers(); // Notify observers of change
         return film;
     }
 
@@ -22,6 +24,7 @@ public class FilmService {
         for (int i = 0; i < films.size(); i++) {
             if (films.get(i).getFilmId().equals(filmModifie.getFilmId())) {
                 films.set(i, filmModifie);
+                     notifyObservers(); // Notify observers of change
                 return filmModifie;
             }
         }
@@ -29,7 +32,11 @@ public class FilmService {
     }
 
     public boolean supprimerFilm(String filmId) {
-        return films.removeIf(film -> film.getFilmId().equals(filmId));
+        boolean removed = films.removeIf(film -> film.getFilmId().equals(filmId));
+        if(removed){
+                 notifyObservers(); // Notify observers of change
+        }
+        return removed;
     }
 
     public Film getFilmById(String filmId) {
@@ -44,5 +51,18 @@ public class FilmService {
     public List<Film> getAllFilms() {
         return films;
     }
+
+    // Observer Pattern Methods
+   public void addObserver(FilmServiceObserver observer) {
+       observers.add(observer);
+   }
+   public void removeObserver(FilmServiceObserver observer) {
+       observers.remove(observer);
+   }
+   private void notifyObservers() {
+       for (FilmServiceObserver observer : observers) {
+           observer.onFilmsChanged(); // Notify each observer
+       }
+   }
 
 }
